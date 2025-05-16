@@ -1,0 +1,58 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+
+    background-color: #424242;
+}
+
+.sideBar {
+    height: 95%;
+    width: 20%;
+
+
+    margin: 0px 5px 0px 10px;
+    background-color: rgb(12, 5, 78);
+
+    border-radius: 5px;
+}
+
+.dashBoard {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    height: 95%;
+    width: 80%;
+
+    margin: 0px 10px 0px 5px;
+    background-color: white;
+
+    border-radius: 5px;
+}
+
+
+.controlContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+}
+
+.controls {
+    height: 85%;
+    width: 99%;
+    border-radius: 5px;
+    background-color: #8B8B8B;
+}
+
+.itemsContainer {
+    height: 90%;
+    width: 100%;
+
+    background-color: aqua;
+}

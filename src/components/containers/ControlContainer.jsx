@@ -1,9 +1,12 @@
+/**
+ * [Assets]
+ */
+import styles from '../../assets/styles/AppStyles.module.css'
+
 const ControlContainer = () => {
     return(
-        <div>
-            <h4>
-                ControlContainer
-            </h4>
+        <div className={styles.controls}>
+
         </div>
     )
 }

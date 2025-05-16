@@ -1,9 +1,6 @@
 const ItemsContainer = () => {
     return(
         <div>
-            <h4>
-                ItemsContainer
-            </h4>
         </div>
     )
 }
