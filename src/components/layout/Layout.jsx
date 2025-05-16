@@ -14,6 +14,7 @@ const Layout = () => {
         <div className={styles.layout}>
             <aside className={styles.sideBar}>
                 <nav>
+                    {/* Espacio para elementos de navegación */}
                 </nav>
             </aside>
 
@@ -23,12 +24,11 @@ const Layout = () => {
                 </section>
 
                 <article className={styles.itemsContainer}>
-
+                    <ItemsContainer />
                 </article>
             </main>
         </div>
     )
 }
-    export default Layout
 
-
+export default Layout
