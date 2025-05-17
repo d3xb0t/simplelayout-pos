@@ -8,6 +8,10 @@
 }
 
 .sideBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: calc(100% - 2rem);
     width: 15%;
     min-width: 200px;
@@ -42,14 +46,6 @@
     border-bottom: 1px solid #e0e0e0;
 }
 
-.controls {
-    height: 85%;
-    width: 99%;
-    border-radius: 8px;
-    background-color: #f8fafc;
-    border: 1px solid #e1e5eb;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-}
 
 .itemsContainer {
     flex: 1;
@@ -58,4 +54,50 @@
     box-sizing: border-box;
     background-color: #f9f9f9;
     overflow-y: auto;
+}
+
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    gap: 1rem;
+    height: 95%;
+    width: 99%;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #e1e5eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 0 1.5rem;
+}
+
+.controlButton {
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    padding: 0.5rem;
+    background-color: #f8fafc;
+    border: 1px solid #e1e5eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.controlButton:hover {
+    background-color: #f1f5f9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.controlIcon {
+    color: #4b5563;
+    font-size: 1.5rem !important;
+}
+
+.controlButton:hover .controlIcon {
+    color: #3b82f6;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
 }
