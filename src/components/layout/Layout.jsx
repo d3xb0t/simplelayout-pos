@@ -36,9 +36,8 @@ const Layout = () => {
     const [nav, setNav] = useState(true)
     return (
         <div className={styles.layout}>
-            <aside className={styles.sideBar}>
+            <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>
                 <nav className={styles.navbar} >
-                    <div>Estado actual: {nav.toString()}</div>
                     {
                         SIDEBAR_BUTTONS.map((button) => (
                             <CustomButton
@@ -51,7 +50,7 @@ const Layout = () => {
                 </nav>
             </aside>
 
-            <main className={styles.dashBoard}>
+            <main className={`${styles.dashBoard} ${!nav && styles.expanded}`}>
                 <section className={styles.controlContainer}>
                     <ControlContainer setNav={setNav} />
                 </section>
