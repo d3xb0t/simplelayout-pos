@@ -1,7 +1,9 @@
 /**
  * [Core]
  */
-import React, { lazy, useState, memo } from 'react';
+import React, { lazy, useState, memo, Suspense } from 'react';
+import CircularProgress from '@mui/material/CircularProgress'
+import { ErrorBoundary } from 'react-error-boundary';
 
 /**
  * [Jerarquía de componentes]
@@ -39,12 +41,17 @@ const Layout = () => {
             <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>
                 <nav className={styles.navbar} >
                     {
-                        SIDEBAR_BUTTONS.map((button) => (
-                            <CustomButton
-                                key={button.label}
-                                startIcon={button.icon}
-                                aria-label={button.aria}
-                            >{button.label}</CustomButton>
+                        SIDEBAR_BUTTONS.map((button, index) => (
+                            <ErrorBoundary key={button.label}
+                                fallback={<div>⚠️ An error has occurred</div>}
+                            >
+                                <Suspense fallback={<CircularProgress size={20} />}>
+                                <CustomButton
+                                    startIcon={button.icon}
+                                    aria-label={button.aria}
+                                >{button.label}</CustomButton>
+                                </Suspense>
+                            </ErrorBoundary>
                         ))
                     }
                 </nav>
