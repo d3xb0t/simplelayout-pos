@@ -4,7 +4,5 @@ import './index.css'
 import Application from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <Application />
-  </StrictMode>,
 )

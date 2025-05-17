@@ -1,7 +1,7 @@
 /**
  * [Core]
  */
-import React, { lazy } from 'react';
+import React, { lazy, useState, memo } from 'react';
 
 /**
  * [Jerarquía de componentes]
@@ -33,10 +33,12 @@ const SIDEBAR_BUTTONS = [
 ]
 
 const Layout = () => {
+    const [nav, setNav] = useState(true)
     return (
         <div className={styles.layout}>
             <aside className={styles.sideBar}>
-                <nav className={styles.navbar}>
+                <nav className={styles.navbar} >
+                    <div>Estado actual: {nav.toString()}</div>
                     {
                         SIDEBAR_BUTTONS.map((button) => (
                             <CustomButton
@@ -51,7 +53,7 @@ const Layout = () => {
 
             <main className={styles.dashBoard}>
                 <section className={styles.controlContainer}>
-                    <ControlContainer />
+                    <ControlContainer setNav={setNav} />
                 </section>
 
                 <article className={styles.itemsContainer}>

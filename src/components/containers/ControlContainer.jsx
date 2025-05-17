@@ -10,7 +10,7 @@ import styles from '../../assets/styles/AppStyles.module.css'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ListIcon from '@mui/icons-material/List'
 import IconButton from '@mui/material/IconButton'
-import Badge, {badgeClasses} from '@mui/material/Badge'
+import Badge, { badgeClasses } from '@mui/material/Badge'
 import { styled } from '@mui/material/styles'
 
 const CartBadge = styled(Badge)`
@@ -20,11 +20,13 @@ const CartBadge = styled(Badge)`
 }
 `
 
-const ControlContainer = () => {
+const ControlContainer = ({ setNav }) => {
     const [cartItems, setCartItems] = useState(2)
     return (
         <div className={styles.controls}>
-            <IconButton className={styles.controlButton} aria-label="List view">
+            <IconButton className={styles.controlButton} aria-label="List view"
+                onClick={() => setNav(prev => !prev)}
+            >
                 <ListIcon fontSize='small' />
             </IconButton>
             <IconButton className={styles.controlButton} aria-label="Shopping cart">
