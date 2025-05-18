@@ -1,7 +1,7 @@
 /**
  * [Core]
  */
-import React, { lazy, useState, memo, Suspense, useMemo } from 'react';
+import React, { lazy, useState, memo, Suspense, useMemo, useEffect, useCallback } from 'react';
 import CircularProgress from '@mui/material/CircularProgress'
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -28,6 +28,8 @@ const PersonIcon = lazy(() => import('@mui/icons-material/Person'))
 
 const Layout = () => {
     const [nav, setNav] = useState(true)
+    const [items, setItems] = useState([])
+    console.log(items)
     const SIDEBAR_BUTTONS = [
         { label: "Home", icon: <HomeIcon />, aria: "Home" },
         { label: "Bills", icon: <PaidIcon />, aria: "Bills" },
@@ -35,6 +37,22 @@ const Layout = () => {
         { label: "Customers", icon: <PersonIcon />, aria: "Customers" },
         { label: "Logout", icon: <LogoutIcon />, aria: "Logout" }
     ]
+
+    const getItemsFromServer = useCallback(async () => {
+        try {
+            
+            await fetch('http://localhost:8080/api/v1/get-items')
+            .then(response => response.json())
+            .then(json => setItems(json))
+            
+        } catch (err) {
+            console.error(err.message)
+        }
+    }, [])
+
+    useEffect(() => {
+        getItemsFromServer()
+    }, [getItemsFromServer])
     return (
         <div className={styles.layout}>
             <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>

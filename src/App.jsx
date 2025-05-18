@@ -26,7 +26,7 @@ const Application = memo( () => {
     return(
         <Router>
             <Routes>
-                <Route path="/" element={<Layout />} />
+                <Route path="/home" element={<Layout />} />
                 <Route path="/items" element={<ItemsContainer />} />
             </Routes>
         </Router>
