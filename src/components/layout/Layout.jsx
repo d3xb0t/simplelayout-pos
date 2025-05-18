@@ -1,7 +1,7 @@
 /**
  * [Core]
  */
-import React, { lazy, useState, memo, Suspense } from 'react';
+import React, { lazy, useState, memo, Suspense, useMemo } from 'react';
 import CircularProgress from '@mui/material/CircularProgress'
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -26,16 +26,15 @@ const FormatListNumberedIcon = lazy(() => import('@mui/icons-material/FormatList
 const LogoutIcon = lazy(() => import('@mui/icons-material/Logout'))
 const PersonIcon = lazy(() => import('@mui/icons-material/Person'))
 
-const SIDEBAR_BUTTONS = [
-    { label: "Home", icon: <HomeIcon />, aria: "Home" },
-    { label: "Bills", icon: <PaidIcon />, aria: "Bills" },
-    { label: "Items", icon: <FormatListNumberedIcon />, aria: "Items" },
-    { label: "Customers", icon: <PersonIcon />, aria: "Customers" },
-    { label: "Logout", icon: <LogoutIcon />, aria: "Logout" }
-]
-
 const Layout = () => {
     const [nav, setNav] = useState(true)
+    const SIDEBAR_BUTTONS = [
+        { label: "Home", icon: <HomeIcon />, aria: "Home" },
+        { label: "Bills", icon: <PaidIcon />, aria: "Bills" },
+        { label: "Items", icon: <FormatListNumberedIcon />, aria: "Items" },
+        { label: "Customers", icon: <PersonIcon />, aria: "Customers" },
+        { label: "Logout", icon: <LogoutIcon />, aria: "Logout" }
+    ]
     return (
         <div className={styles.layout}>
             <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>
@@ -46,10 +45,10 @@ const Layout = () => {
                                 fallback={<div>⚠️ An error has occurred</div>}
                             >
                                 <Suspense fallback={<CircularProgress size={20} />}>
-                                <CustomButton
-                                    startIcon={button.icon}
-                                    aria-label={button.aria}
-                                >{button.label}</CustomButton>
+                                    <CustomButton
+                                        startIcon={button.icon}
+                                        aria-label={button.aria}
+                                    >{button.label}</CustomButton>
                                 </Suspense>
                             </ErrorBoundary>
                         ))

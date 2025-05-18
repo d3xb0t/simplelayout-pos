@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
  * [Jerarquía de componentes]
  */
 import Layout from './components/layout/Layout'
+import ItemsContainer from './components/containers/ItemsContainer'
 
 
 /**
@@ -26,6 +27,7 @@ const Application = memo( () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Layout />} />
+                <Route path="/items" element={<ItemsContainer />} />
             </Routes>
         </Router>
     )
