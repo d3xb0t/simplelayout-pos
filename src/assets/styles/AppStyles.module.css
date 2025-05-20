@@ -63,9 +63,11 @@
 
 
 .itemsContainer {
-    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     width: 100%;
-    padding: 1rem;
+    padding: 4rem;
     box-sizing: border-box;
     background-color: #f9f9f9;
     overflow-y: auto;
@@ -116,3 +118,112 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.card {
+    border: 1px solid #E2E8F0;
+    /* Borde sutil gris */
+
+    padding: 2px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1);
+    /* Sombra moderna */
+
+    height: 230px;
+    width: 150px;
+    margin: 10px 20px 0px 0px;
+
+    border-radius: 10px 10px 0px 0px;
+
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Transición suave */
+    cursor: pointer;
+    /* Cambia el cursor a "mano" */
+}
+
+/* Títulos y texto */
+.card h3 {
+    color: #2D3748;
+    /* Gris oscuro */
+}
+
+.card p {
+    color: #4A5568;
+    /* Gris medio */
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Sombra más pronunciada */
+    transform: translateY(-5px) scale(1.02);
+    /* Sube y agranda un 2% */
+}
+
+.card img {
+    height: 60%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: end;
+    height: 40px;
+    width: 100%;
+
+    background: #0C054E;
+    border-radius: 5px;
+}
+
+/* Títulos y texto */
+.card h3 {
+    color: #2D3748;
+    /* Gris oscuro */
+}
+
+.errorContainer {
+    padding: 1rem;
+    background: #FFF0F0;
+    border: 1px solid #FFCCCC;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.errorContainer p {
+    color: #D32F2F;
+    margin-bottom: 0.5rem;
+}
+
+.errorContainer button {
+    background: #D32F2F;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.errorContainer button:hover {
+    background: #B71C1C;
+}
+
+/* Spinner de carga (Suspense) */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #3B82F6;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+

@@ -28,8 +28,16 @@ const PersonIcon = lazy(() => import('@mui/icons-material/Person'))
 
 const Layout = () => {
     const [nav, setNav] = useState(true)
-    const [items, setItems] = useState([])
-    console.log(items)
+
+    const [state, setState] = React.useState({
+        itemsCollection: [],
+        systemStatus: {
+            isLoading: true,
+            lastError: null,
+            requestCount: 0
+        }
+    });
+
     const SIDEBAR_BUTTONS = [
         { label: "Home", icon: <HomeIcon />, aria: "Home" },
         { label: "Bills", icon: <PaidIcon />, aria: "Bills" },
@@ -40,13 +48,38 @@ const Layout = () => {
 
     const getItemsFromServer = useCallback(async () => {
         try {
-            
+
+            setState(prev => ({
+                ...prev,
+                systemStatus: {
+                    ...prev.systemStatus,
+                    isLoading: true,
+                    lastError: null
+                }
+            }))
+
             await fetch('http://localhost:8080/api/v1/get-items')
-            .then(response => response.json())
-            .then(json => setItems(json))
-            
+                .then(response => response.json())
+                .then(json => {
+                    setState(prev => ({
+                        itemsCollection: json.data,
+                        systemStatus: {
+                            ...prev.systemStatus,
+                            isLoading: false,
+                            requestCount: prev.systemStatus.requestCount + 1
+                        }
+                    }))
+                })
+
         } catch (err) {
-            console.error(err.message)
+            setState(prev => ({
+                ...prev,
+                systemStatus: {
+                    ...prev.systemStatus,
+                    isLoading: false,
+                    lastError: err.message
+                }
+            }))
         }
     }, [])
 
@@ -80,7 +113,7 @@ const Layout = () => {
                 </section>
 
                 <article className={styles.itemsContainer}>
-                    <ItemsContainer />
+                    <ItemsContainer>{state.itemsCollection}</ItemsContainer>
                 </article>
             </main>
         </div>

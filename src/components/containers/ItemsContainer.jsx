@@ -1,7 +1,20 @@
-const ItemsContainer = () => {
+/**
+ * [Assets]
+ */
+import styles from '../../assets/styles/AppStyles.module.css'
+
+
+import ItemCard from "../ItemCard"
+
+const ItemsContainer = (items) => {
     return(
-        <div>
-        </div>
+        <>
+            {
+                items.children.map((item, index) => (
+                    <ItemCard key={item._id} item={item}/>
+                ))
+            }
+        </>
     )
 }
 
