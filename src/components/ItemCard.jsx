@@ -37,7 +37,7 @@ const ItemCard = ({ item }) => {
         <article className={styles.card}>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <img src={item.imageUrl} alt={`Imagen ${item.name}`} />
-                <h3>{item.name}</h3>
+                <h4>{item.name}</h4>
                 <p>Price {item.price}$</p>
                 <div className={styles.buttonContainer}>
                     <Suspense fallback={<LoadingSpinner />}>
