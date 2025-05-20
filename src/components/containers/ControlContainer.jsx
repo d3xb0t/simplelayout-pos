@@ -1,9 +1,10 @@
 /**
  * [Core]
  */
-import React, { lazy, useState, memo, Suspense } from 'react';
+import React, { lazy, useState, memo, Suspense } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'react-error-boundary'
+import { useSelector } from 'react-redux'
 
 /**
  * [Assets]
@@ -25,7 +26,7 @@ const CartBadge = styled(Badge)`
 `
 
 const ControlContainer = ({ setNav }) => {
-    const [cartItems, setCartItems] = useState(2)
+    const cartItems = useSelector(state => state.root.cartItems)
     return (
         <div className={styles.controls}>
             <ErrorBoundary
@@ -45,7 +46,7 @@ const ControlContainer = ({ setNav }) => {
                 <Suspense fallback={<CircularProgress size={20} />}>
                     <IconButton className={styles.controlButton} aria-label="Shopping cart">
                         <ShoppingCartIcon fontSize="small" />
-                        <CartBadge badgeContent={2} color="primary" overlap="circular" />
+                        <CartBadge badgeContent={cartItems.length} color="primary" overlap="circular" />
                     </IconButton>
                 </Suspense>
             </ErrorBoundary>

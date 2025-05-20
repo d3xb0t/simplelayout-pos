@@ -4,6 +4,8 @@
 import React, { lazy, useState, memo, Suspense, useMemo, useEffect, useCallback } from 'react';
 import CircularProgress from '@mui/material/CircularProgress'
 import { ErrorBoundary } from 'react-error-boundary';
+import { useSelector } from 'react-redux';
+
 
 /**
  * [Jerarquía de componentes]
@@ -28,7 +30,6 @@ const PersonIcon = lazy(() => import('@mui/icons-material/Person'))
 
 const Layout = () => {
     const [nav, setNav] = useState(true)
-
     const [state, setState] = React.useState({
         itemsCollection: [],
         systemStatus: {
@@ -45,6 +46,7 @@ const Layout = () => {
         { label: "Customers", icon: <PersonIcon />, aria: "Customers" },
         { label: "Logout", icon: <LogoutIcon />, aria: "Logout" }
     ]
+    const cartItems = useSelector(state => state.root.cartItems)
 
     const getItemsFromServer = useCallback(async () => {
         try {
@@ -85,7 +87,8 @@ const Layout = () => {
 
     useEffect(() => {
         getItemsFromServer()
-    }, [getItemsFromServer])
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+    }, [getItemsFromServer, cartItems])
     return (
         <div className={styles.layout}>
             <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>
