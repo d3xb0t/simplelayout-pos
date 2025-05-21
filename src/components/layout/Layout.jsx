@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import ControlContainer from '../containers/ControlContainer'
 import ItemsContainer from '../containers/ItemsContainer'
 import { CustomButton } from '../CustomButton'
+import SideBarButton from '../SideBarButton'
 
 /**
  * [Assets]
@@ -48,8 +49,9 @@ const Layout = () => {
     ]
 
     const getItemsFromServer = useCallback(async () => {
-        try {
+        const abortController = new AbortController();
 
+        try {
             setState(prev => ({
                 ...prev,
                 systemStatus: {
@@ -57,36 +59,54 @@ const Layout = () => {
                     isLoading: true,
                     lastError: null
                 }
-            }))
+            }));
 
-            await fetch('http://localhost:8080/api/v1/get-items')
-                .then(response => response.json())
-                .then(json => {
-                    setState(prev => ({
-                        itemsCollection: json.data,
-                        systemStatus: {
-                            ...prev.systemStatus,
-                            isLoading: false,
-                            requestCount: prev.systemStatus.requestCount + 1
-                        }
-                    }))
-                })
+            const response = await fetch('http://localhost:8080/api/v1/get-items', {
+                signal: abortController.signal
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const json = await response.json();
+
+            if (!abortController.signal.aborted) {
+                setState(prev => ({
+                    itemsCollection: json.data,
+                    systemStatus: {
+                        ...prev.systemStatus,
+                        isLoading: false,
+                        requestCount: prev.systemStatus.requestCount + 1
+                    }
+                }));
+            }
 
         } catch (err) {
-            setState(prev => ({
-                ...prev,
-                systemStatus: {
-                    ...prev.systemStatus,
-                    isLoading: false,
-                    lastError: err.message
-                }
-            }))
+            if (err.name !== 'AbortError') {
+                setState(prev => ({
+                    ...prev,
+                    systemStatus: {
+                        ...prev.systemStatus,
+                        isLoading: false,
+                        lastError: err.message
+                    }
+                }));
+            }
         }
-    }, [])
+
+        return abortController;
+    }, []);
 
     useEffect(() => {
-        getItemsFromServer()
-    }, [getItemsFromServer])
+        const abortController = getItemsFromServer();
+
+        return () => {
+            if (abortController instanceof AbortController) {
+                abortController.abort();
+            }
+        };
+    }, [getItemsFromServer]);
     return (
         <div className={styles.layout}>
             <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>
@@ -96,12 +116,7 @@ const Layout = () => {
                             <ErrorBoundary key={button.label}
                                 fallback={<div>⚠️ An error has occurred</div>}
                             >
-                                <Suspense fallback={<CircularProgress size={20} />}>
-                                    <CustomButton
-                                        startIcon={button.icon}
-                                        aria-label={button.aria}
-                                    >{button.label}</CustomButton>
-                                </Suspense>
+                                <SideBarButton icon={button.icon} label={button.label} aria={button.aria}/>
                             </ErrorBoundary>
                         ))
                     }
