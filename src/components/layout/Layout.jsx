@@ -46,7 +46,6 @@ const Layout = () => {
         { label: "Customers", icon: <PersonIcon />, aria: "Customers" },
         { label: "Logout", icon: <LogoutIcon />, aria: "Logout" }
     ]
-    const cartItems = useSelector(state => state.root.cartItems)
 
     const getItemsFromServer = useCallback(async () => {
         try {
@@ -87,8 +86,7 @@ const Layout = () => {
 
     useEffect(() => {
         getItemsFromServer()
-        localStorage.setItem('cartItems', JSON.stringify(cartItems))
-    }, [getItemsFromServer, cartItems])
+    }, [getItemsFromServer])
     return (
         <div className={styles.layout}>
             <aside className={`${styles.sideBar} ${!nav && styles.hidden}`}>

@@ -1,7 +1,7 @@
 /**
  * [Core]
  */
-import React, { lazy, useState, memo, Suspense } from 'react'
+import React, { lazy, useState, memo, Suspense, useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useSelector } from 'react-redux'
@@ -27,6 +27,13 @@ const CartBadge = styled(Badge)`
 
 const ControlContainer = ({ setNav }) => {
     const cartItems = useSelector(state => state.root.cartItems)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        }, 300)
+        return () => clearTimeout(timer)
+    }, [cartItems])
     return (
         <div className={styles.controls}>
             <ErrorBoundary
